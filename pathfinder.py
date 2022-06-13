@@ -9,5 +9,4 @@ def get_directions(maze) -> list:
     be useful.  Feel free to use of its methods, except the ones that
     start with underscores.
     """
-    #pass    # TODO: Implement this function yourself.  Feel free to write other classes/functions as you need!
-    return ["r", "u", "l", "u", "r", "r", "d"]
+    pass    # TODO: Implement this function yourself.  Feel free to write other classes/functions as you need!
