@@ -1,4 +1,4 @@
-# maze_solver_a_star_classroom_assignment
+# maze-solver-a-star-classroom-assignment
 Assignment for students learning graph search algorithms such as A*.  This assignment is inspired by the Pacman assignments used in [CS 188: Artificial Intelligence](http://ai.berkeley.edu/home.html), taught by Drs. Dan Klein and Pieter Abeel at University of California, Berkeley.
 
 A random 20x20 Maze object is created and passed to pathfinder.get_directions(), which the student must implement.
