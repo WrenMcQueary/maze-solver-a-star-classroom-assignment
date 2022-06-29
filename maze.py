@@ -14,6 +14,7 @@ class Maze:
         self.grid is the underlying numpy grid for the maze
         """
         (self._walls, self._goal, self.grid) = self._generate_walls_and_goal()
+        self.winning_position = self._get_winning_position()
 
     def _generate_walls_and_goal(self):
         """Randomly generates _walls and the goal for this maze.
@@ -291,6 +292,13 @@ class Maze:
             raise IndexError("c is out of bounds")
 
         return self.grid[r, c] == 2
+
+    def _get_winning_position(self) -> tuple:
+        """Return the numpy coordinates of the winning position in the maze."""
+        for rr in range(np.shape(self.grid)[0]):
+            for cc in range(np.shape(self.grid)[1]):
+                if self.grid[rr, cc] == 2:
+                    return rr, cc
 
 
 class Zone:
