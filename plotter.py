@@ -40,7 +40,7 @@ def draw(maze, directions: list, canvas) -> None:
         """Converts from the physics coordinate system to the tkinter canvas coordinate system.
         physics_coords is a list of 2 floats.
         """
-        return [physics_coords[0], 800 - physics_coords[1]]
+        return [physics_coords[1], 800 - physics_coords[0]]
 
     def numpy_coords_to_tkinter_coords(numpy_coords: list) -> list:
         """Converts from numpy cell coordinates to the tkinter canvas coordinate system, pointing at the center of a
