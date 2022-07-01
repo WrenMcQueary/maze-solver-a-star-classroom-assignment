@@ -218,24 +218,24 @@ class Maze:
 
         # Check for 'u'
         if 0 <= r-1 < np.shape(self.grid)[0]:   # If in bounds:
-            if np.grid[r-1, c] != 1:    # If not a wall:
+            if self.grid[r-1, c] != 1:    # If not a wall:
                 output_moves.append("u")
         # Check for 'd'
         if 0 <= r+1 < np.shape(self.grid)[0]:   # If in bounds:
-            if np.grid[r+1, c] != 1:    # If not a wall:
+            if self.grid[r+1, c] != 1:    # If not a wall:
                 output_moves.append("d")
         # Check for 'l'
         if 0 <= c-1 < np.shape(self.grid)[0]:   # If in bounds:
-            if np.grid[r, c-1] != 1:    # If not a wall:
+            if self.grid[r, c-1] != 1:    # If not a wall:
                 output_moves.append("l")
         # Check for 'r'
         if 0 <= c+1 < np.shape(self.grid)[0]:   # If in bounds:
-            if np.grid[r, c+1] != 1:    # If not a wall:
+            if self.grid[r, c+1] != 1:    # If not a wall:
                 output_moves.append("r")
 
         return output_moves
 
-    def get_next_space(self, r: int, c: int, direction: str) -> tuple:
+    def get_next_space(self, r: int, c: int, direction: str) -> list:
         """Given direction 'u', 'd', 'l', or 'r', return the coordinates of the next space.
         If the move is illegal, raise an error instead.
         """
@@ -266,13 +266,13 @@ class Maze:
             raise ValueError("direction not a legal move from (r, c)")
 
         if direction == "u":
-            return r-1, c
+            return [r-1, c]
         elif direction == "d":
-            return r+1, c
+            return [r+1, c]
         elif direction == "l":
-            return r, c-1
+            return [r, c-1]
         else:   # direction must equal "r"
-            return r, c+1
+            return [r, c+1]
 
     def is_winning_position(self, r: int, c: int) -> bool:
         """Given row and column coordinates to a position on self.grid, return whether it's a winning position.
@@ -293,12 +293,12 @@ class Maze:
 
         return self.grid[r, c] == 2
 
-    def _get_winning_position(self) -> tuple:
+    def _get_winning_position(self) -> list:
         """Return the numpy coordinates of the winning position in the maze."""
         for rr in range(np.shape(self.grid)[0]):
             for cc in range(np.shape(self.grid)[1]):
                 if self.grid[rr, cc] == 2:
-                    return rr, cc
+                    return [rr, cc]
 
 
 class Zone:
