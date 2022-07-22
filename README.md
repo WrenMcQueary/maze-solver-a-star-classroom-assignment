@@ -8,9 +8,11 @@ The student's path through the maze is then visualized using tkinter.
 
 The Maze object contains some useful functions to help the student identify legal moves, identify a winning space in the maze, etc.
 
+util.py also includes an implementation of a minimum priority queue, which the student may also use.
+
 
 # Requirement
-This program ahs been successfully tested for Python 3.8.
+This program has been successfully tested for Python 3.8.
 
 
 # Install dependency
