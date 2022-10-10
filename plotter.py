@@ -4,6 +4,8 @@
 from maze import Maze
 import tkinter
 import numpy as np
+import ctypes
+windows_scale_factor = ctypes.windll.shcore.GetScaleFactorForDevice(0) / 100
 
 
 def plot_directions(maze, directions: list) -> None:
@@ -26,9 +28,9 @@ def plot_directions(maze, directions: list) -> None:
 
     window = tkinter.Tk()
     window.title("Directions through maze")
-    window.geometry("800x830")
+    window.geometry(f"{int(800/windows_scale_factor)}x{int(830/windows_scale_factor)}")
     window["background"] = "#2B2B2B"
-    canvas = tkinter.Canvas(window, width=800, height=800, background="#CCCCCC")    # #A33DB8 is also nice
+    canvas = tkinter.Canvas(window, width=int(800/windows_scale_factor), height=int(800/windows_scale_factor), background="#CCCCCC")    # #A33DB8 is also nice
     canvas.grid(row=0, column=0)
     window.after(500, lambda: draw(maze, directions, canvas))
     window.mainloop()
@@ -40,13 +42,13 @@ def draw(maze, directions: list, canvas) -> None:
         """Converts from the physics coordinate system to the tkinter canvas coordinate system.
         physics_coords is a list of 2 floats.
         """
-        return [physics_coords[1], 800 - physics_coords[0]]
+        return [int(physics_coords[1]/windows_scale_factor), int((800 - physics_coords[0])/windows_scale_factor)]
 
     def numpy_coords_to_tkinter_coords(numpy_coords: list) -> list:
         """Converts from numpy cell coordinates to the tkinter canvas coordinate system, pointing at the center of a
         cell"""
         r, c = numpy_coords[0], numpy_coords[1]
-        return [40*c + 20, 40*r + 20]
+        return [int((40*c + 20)/windows_scale_factor), int((40*r + 20)/windows_scale_factor)]
 
     # Handle errors
     # maze not a Maze object
@@ -88,14 +90,14 @@ def draw(maze, directions: list, canvas) -> None:
     # Draw a dot at starting position
     current_cell_coords = [np.shape(maze.grid)[0] - 1, 0]  # numpy coordinates
     dot_center = numpy_coords_to_tkinter_coords(current_cell_coords)
-    dot_radius = 8  # pixels
+    dot_radius = 8/windows_scale_factor  # pixels
     canvas.create_oval(dot_center[0] - dot_radius, dot_center[1] - dot_radius, dot_center[0] + dot_radius, dot_center[1] + dot_radius, fill="cyan")
 
     # Draw the user's path
     for step in directions:
         # Draw a dot at new position
         dot_center = numpy_coords_to_tkinter_coords(current_cell_coords)
-        dot_radius = 8  # pixels
+        dot_radius = 8/windows_scale_factor  # pixels
         canvas.create_oval(dot_center[0] - dot_radius, dot_center[1] - dot_radius, dot_center[0] + dot_radius, dot_center[1] + dot_radius, fill="cyan")
         # Draw a line to next position
         if step == "u":
@@ -111,7 +113,7 @@ def draw(maze, directions: list, canvas) -> None:
         canvas.create_line(line_start[0], line_start[1], line_end[0], line_end[1], fill="cyan")
         # Draw a dot at new position
         dot_center = numpy_coords_to_tkinter_coords(new_cell_coords)
-        dot_radius = 8  # pixels
+        dot_radius = 8/windows_scale_factor  # pixels
         canvas.create_oval(dot_center[0] - dot_radius, dot_center[1] - dot_radius, dot_center[0] + dot_radius, dot_center[1] + dot_radius, fill="cyan")
         # Update current_cell_coords
         current_cell_coords = new_cell_coords.copy()
